@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Today's Order</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="icomoon/style.css">
+  <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script>
+    $(function () {
+      $('.menu-btn').click(function () {
+        $('.header-nav').toggleClass('open');
+      });
+
+      $('.header-nav a').click(function () {
+        $('.header-nav').toggleClass('open');
+      });
+    });
+  </script>
+</head>
+
+<body>
+  <header>
+    <div class="inner">
+      <h1 class="logo"><span class="icon-logo"></span></h1>
+      <button type="button" class="menu-btn">menu</button>
+
+      <nav class="header-nav">
+        <ul>
+          <li><a href="index.html">Today's Order<br>オーダー</a></li>
+          <li><a href="perm-straightening/index.html">Perm / Straightening<br>パーマ・縮毛矯正</a></li>
+          <li><a href="hair coloring/index.html">Hair Coloring<br>髪染め</a></li>
+          <li><a href="treatment/index.html">Treatment<br>トリートメント</a></li>
+          <li><a href="head spa/index.html">Head Spa<br>ヘッドスパ</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div id="kv"></div>
+
+    <section id="main">
+      <div class="menu">
+        <h1>menu</h1>
+        <h2 class="lead">Please select your order</h2>
+
+        <div class="wrap-blk">
+          <div class="contents-blk" id="items">
+            <ul>
+              <li>
+                <a href="cut&shampoo/index.html">cut & shampoo （カット＆シャンプー）</a>
+                <p class="instruction">Please click on the closest picture to your desired hairstyle.</p>
+
+                <div class="cut-shampoo-photos">
+                  <a href="shortwoman.html"><img src="images/cut01.jpg" alt="shorthairwoman"></a>
+                  <a href="mediumwoman.html"><img src="images/cut02.jpg" alt="mediumhairwoman"></a>
+                  <a href="longwoman.html"><img src="images/cut03.jpg" alt="longhairwoman"></a>
+                  <a href="shortman.html"><img src="images/cut04.jpg" alt="shorthairman"></a>
+                  <a href="mediumman.html"><img src="images/cut05.jpg" alt="mediumhairman"></a>
+                  <a href="longman.html"><img src="images/cut06.jpg" alt="longhairman"></a>
+                </div>
+
+                <a class="other-hairstyles" href="others/index.html">
+                  other hairstyles
+                </br>（上記以外のヘアスタイル）
+                </a>
+              </li>
+
+<div class="options">
+<h4 class="lead">Extra Options
+   </br>（追加オプション）
+   </h4>
+<li class="menu-item-check">
+
+  <!-- パーマのブロック -->
+  <div class="menu-option">
+    <label>
+      <input type="checkbox" name="menu" value="perm">
+      <span>perm （パーマ）</span>
+    </label>
+    <div class="menu-img-wrap">
+      <img src="images/perm.jpg" alt="perm">
+    </div>
+  </div>
+
+  <!-- 縮毛矯正のブロック -->
+  <div class="menu-option">
+    <label>
+      <input type="checkbox" name="menu" value="straightening">
+      <span>straightening （縮毛矯正）</span>
+    </label>
+    <div class="menu-img-wrap">
+      <img src="images/straightening.jpg" alt="straightening">
+    </div>
+  </div>
+</li>
+ 
+<div class="coloring-menu">
+  <h4>Hair Coloring
+  </br>（カラーリング）  
+  </h4>
+  <div class="colormenu">
+   <label>
+     <input type="checkbox" name="coloring" value="coloring">
+       Coloring
+       </br>（ヘアカラー）
+   </label>
+
+   <label>
+     <input type="checkbox" name="coloring" value="bleaching">
+       Bleaching
+     </br>（ブリーチ）
+   </label>
+
+   <label>
+     <input type="checkbox" name="coloring" value="bleaching-coloring">
+       Bleaching &amp; Coloring
+       </br>（ヘアカラー＆ブリーチ）
+  </label>
+ </div>
+ 
+ <div class="colors">
+  <h4>Select Color </h4>
+  <label>
+     <input type="checkbox" name="coloring" value="bleaching">
+       black
+     </br>（黒）
+  </label>
+
+     <label>
+     <input type="checkbox" name="coloring" value="bleaching">
+       gray
+     </br>（白髪）
+     </label>
+
+ <label>
+     <input type="checkbox" name="coloring" value="bleaching">
+       brown
+     </br>（茶髪）
+</label>
+
+<label>
+     <input type="checkbox" name="coloring" value="bleaching">
+       blond
+     </br>（金髪）
+   </label>
+
+   <label>
+     <input type="checkbox" name="coloring" value="bleaching">
+       red
+     </br>（赤）
+   </label>
+  <label>
+     <input type="checkbox" name="coloring" value="bleaching">
+       pink
+     </br>（ピンク）
+   </label>
+  <label>
+     <input type="checkbox" name="coloring" value="bleaching">
+       blue
+     </br>（青）
+   </label>
+   <label>
+     <input type="checkbox" name="coloring" value="bleaching">
+       green
+     </br>（緑）
+   </label>
+   <label>
+     <input type="checkbox" name="coloring" value="bleaching">
+       purple
+     </br>（紫）
+   </label>
+   <label>
+     <input type="checkbox" name="coloring" value="bleaching">
+       another color
+     </br>（その他）
+   </label>
+ </div>
+</div>
+</ul>
+
+              <li class="menu-item-check">
+                 <label>
+                  <input type="checkbox" name="menu" value="treatment">
+                     <a href="treatment/index.html">Treatment（トリートメント）</a>
+                </label>
+              </li>
+              <li class="menu-item-check">
+                <label>
+                  <input type="checkbox" name="menu" value="head-spa">
+                  <a href="contact/index.html">Head Spa（ヘッドスパ）</a>
+                </label>
+              </li>
+
+              <!-- ▼ ヘッドスパの真下にコメント欄を移動しました -->
+              <li class="comment-container-item">
+                <div class="comment-container">
+                  <h3>Other Info.(その他リクエスト等)<br>If you have extra requests or orders, please write it here.</h3>
+                  <form action="#" method="POST">
+                    <div class="form-group">
+                      <textarea id="comment" name="comment" rows="5" placeholder="Type here"></textarea>
+                    </div>
+                  </form>
+                </div>
+              </li>
+              <!-- ▲ ここまで -->
+
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div> <!-- ← 閉じタグの数・位置も整理 -->
+
+      <div class="order">
+        <div>
+         <h2>today's order</h2>
+         <a>hairstyle （ヘアスタイル）</a>
+         </div>
+         <div><a>+shampoo （シャンプー）</a>
+       </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

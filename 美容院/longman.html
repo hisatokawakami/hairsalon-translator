@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Today's Order</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="icomoon/style.css">
+  <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script>
+    $(function () {
+      $('.menu-btn').click(function () {
+        $('.header-nav').toggleClass('open');
+      });
+
+      $('.header-nav a').click(function () {
+        $('.header-nav').toggleClass('open');
+      });
+    });
+  </script>
+</head>
+
+<body>
+  <header>
+    <div class="inner">
+      <h1 class="logo"><span class="icon-logo"></span></h1>
+      <button type="button" class="menu-btn">menu</button>
+
+      <nav class="header-nav">
+        <ul>
+          <li><a href="index.html">Today's Order<br>オーダー</a></li>
+          <li><a href="perm-straightening/index.html">Perm / Straightening<br>パーマ・縮毛矯正</a></li>
+          <li><a href="hair coloring/index.html">Hair Coloring<br>髪染め</a></li>
+          <li><a href="treatment/index.html">Treatment<br>トリートメント</a></li>
+          <li><a href="head spa/index.html">Head Spa<br>ヘッドスパ</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div id="kv"></div>
+
+    <section id="main">
+      <div class="menu">
+        <h1>short hair</h1>
+        <div class="parts">
+          <h2 class="lead">How long would you like to get your hair cut?</h2>
+              <div class="parts-wrap">
+                  <img src="images/longmparts.jpg" alt="shortfparts">
+               </div>
+
+               <!-- ★ここに「戻るボタン」を移動させる -->
+        <div class="back-link-wrap">
+          <a href="javascript:history.back();" class="back-btn">&lt; back</a>
+        </div>
+
+        </div>
+      </div>
+      <div class="length-input-group">
+  <div class="length-input-item">
+    <span class="label-text">bangs（前髪）:</span>
+    <input type="number" name="bangs_length" min="0" max="50" step="0.5" placeholder="0">
+    <span class="unit-text">cm shorter</span>
+  </div>
+
+  <div class="length-input-item">
+    <span class="label-text">crown（トップ）:</span>
+    <input type="number" name="crown_length" min="0" max="50" step="0.5" placeholder="0">
+    <span class="unit-text">cm shorter</span>
+  </div>
+
+  <div class="length-input-item">
+    <span class="label-text">side（サイド）:</span>
+    <input type="number" name="side_length" min="0" max="50" step="0.5" placeholder="0">
+    <span class="unit-text">cm shorter</span>
+  </div>
+
+  <div class="length-input-item">
+    <span class="label-text">back（後ろ髪）:</span>
+    <input type="number" name="back_length" min="0" max="50" step="0.5" placeholder="0">
+    <span class="unit-text">cm shorter</span>
+  </div>
+
+  <div class="length-input-item">
+    <span class="label-text">tip（毛先）:</span>
+    <input type="number" name="nape_length" min="0" max="50" step="0.5" placeholder="0">
+    <span class="unit-text">cm shorter</span>
+  </div>
+
+  <div class="length-input-item">
+    <span class="label-text">sideburns（もみあげ）:</span>
+    <input type="number" name="sideburns_length" min="0" max="50" step="0.5" placeholder="0">
+    <span class="unit-text">cm shorter</span>
+  </div>
+</div>
+      </div>
+      <div class="order">
+        <div>
+         <h2>today's order</h2>
+         <a>hairstyle （ヘアスタイル）</a>
+         </div>
+         <div><a>+shampoo （シャンプー）</a>
+       </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

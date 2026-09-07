@@ -1,0 +1,481 @@
+@charset "UTF-8";
+
+html {
+  margin: 0;
+  padding: 0;
+  font-size: 62.5%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Noto Serif JP', serif;
+  font-size: 1.6rem;
+  line-height: 2.1;
+  color: #797e81;
+  text-align: center;
+}
+
+a {
+  text-decoration: none;
+}
+
+h1, h2 {
+  font-weight: 600;
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+ul li {
+  list-style: none;
+}
+
+.inner {
+  width: 1024px;
+  margin: 0 auto;
+}
+
+section {
+  position: relative;
+  background: #fff;
+}
+
+section h1 {
+  font-size: 3.8rem;
+  margin: 0 0 10px;
+}
+
+.instruction {
+  font-size: 1.3rem;
+  margin: 10px 0;
+  letter-spacing: 0.1em;
+  color: #797e81;
+}
+
+#main {
+  display: flex;
+  margin-top: 60px;
+}
+
+.menu {
+  width: 75%;
+}
+
+.other-hairstyles {
+  padding-bottom: 30px; 
+  margin-bottom: 30px; 
+  border-bottom: 1px solid #e0e0e0; 
+}
+
+.order {
+  width: 25%;
+  min-height: 500px;
+  background-color: black;
+}
+
+.menu-item-check {
+  display: flex;
+  flex-direction: row; /* 横並びにする */
+  justify-content: space-around; /* 左右のバランスを整える（お好みで center や space-between に変更可） */
+  flex-wrap: wrap; /* スマホなどで幅が足りなくなったときに綺麗に折り返す */
+  gap: 20px; /* パーマと縮毛矯正の間の隙間 */
+  padding-bottom: 30px; 
+  margin-bottom: 30px; 
+  border-bottom: 1px solid #e0e0e0; 
+}
+
+.menu-item-check .menu-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.menu-item-check img {
+  max-width: 300px; /* 写真の最大サイズ（お好みで調整してください） */
+  width: 100%;      /* 画面が狭くなったら自動で縮小 */
+  height: auto;     /* 縦横比を維持 */
+  display: block;
+  margin-top: 8px;  /* 文字と写真の間の余白 */
+}
+
+.coloring-menu {
+  display: flex;
+  flex-wrap: wrap;       /* 画面が狭い時に折り返す */
+  align-items: flex-start; /* 上揃えにする */
+  justify-content: center;
+  width: 100%;
+  gap: 30px;             /* 左右のブロックの間隔 */
+  margin: 30px 0;
+  padding-bottom: 30px; 
+  border-bottom: 1px solid #e0e0e0; /* 下部の区切り線 */
+}
+
+/* 左側：Hair Coloring のグループ */
+.coloring-left-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;               /* 柔軟に幅を取る */
+  min-width: 250px;
+}
+
+.colormenu {
+  display: flex;
+  flex-direction: column; 
+  gap: 15px;             
+  align-items: flex-start; 
+}
+
+.colors {
+  display: flex;
+  flex-wrap: wrap;       
+  justify-content: center; 
+  gap: 15px;             
+  flex: 1.5;        
+  min-width: 280px;
+  
+  padding-left: 30px; 
+  border-left: 1px solid #e0e0e0; 
+}
+
+.colors label {
+  display: inline-block;
+  text-align: center;
+}
+
+.comment-container-item {
+  list-style: none;
+  margin-top: 40px;
+  padding-top: 30px;
+  border-top: 1px solid #e0e0e0; /* 他のメニューと同じような区切り線を入れる場合 */
+}
+
+.comment-container {
+  max-width: 100%; /* メニューの幅いっぱいに合わせる場合 */
+  margin: 0 auto;
+  padding: 24px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  font-family: sans-serif;
+  text-align: left; /* テキストエリア内や文字を左寄せにしたい場合 */
+}
+
+/* フォームのグループ */
+.form-group {
+  margin-bottom: 16px;
+}
+
+/* ラベルのスタイル */
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* 必須マーク */
+.required {
+  background-color: #ff4d4f;
+  color: #fff;
+  font-size: 0.75rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-left: 4px;
+}
+
+/* 入力フィールド・テキストエリア共通 */
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  box-sizing: border-box; /* paddingを含めた幅を100%にする */
+  transition: border-color 0.2s;
+}
+
+/* フォーカス時のデザイン */
+input[type="text"]:focus,
+textarea:focus {
+  outline: none;
+  border-color: #0066cc;
+  box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+}
+
+/* テキストエリア特有の設定（ユーザーによるサイズ変更を縦方向のみに限定） */
+textarea {
+  resize: vertical;
+}
+
+header {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 15;
+  background: white;
+  box-shadow: 0 6px 3px -3px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+header ul {
+  display: flex;
+}
+
+header a {
+  font-size: 1.5rem;
+  color: #2e4551;
+  margin: 0 0 0 40px;
+  letter-spacing: 0.3em;
+}
+
+header a:hover {
+  color: orange;
+  font-weight: 600;
+}
+
+header .logo {
+  color: #2e4551;
+  font-size: 8rem;
+}
+
+#kv {
+  width: 100%;
+  height: 712px;
+  position: fixed;
+  top: 100px;
+  background: url(./images/kv.png) no-repeat center top / cover;
+}
+
+header .menu-btn {
+  display: none;
+}
+
+.length-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  text-align: left;
+}
+
+.length-input-item {
+  display: flex;
+  align-items: center;
+  font-size: 1.8rem;
+  color: #797e81;
+}
+
+/* 一番長い「sideburns（もみあげ）:」に合わせてラベル幅を設定 */
+.length-input-item .label-text {
+  display: inline-block;
+  width: 220px; 
+  font-weight: bold;
+}
+
+.length-input-item .parenthesis {
+  margin: 0 4px;
+}
+
+/* コンパクトな数値入力ボックス */
+.length-input-item input[type="number"] {
+  width: 45px;          /* 幅をコンパクトに維持 */
+  padding: 4px 2px;
+  font-size: 1.6rem;
+  text-align: center;   /* 数字を中央に表示 */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* スピンボタン（上下矢印）の表示調整（画面をすっきりさせる設定） */
+.length-input-item input[type="number"]::-webkit-inner-spin-button,
+.length-input-item input[type="number"]::-webkit-outer-spin-button {
+  margin: 0;
+}
+
+/* 入力枠フォーカス時 */
+.length-input-item input[type="number"]:focus {
+  outline: none;
+  border-color: #0066cc;
+  box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.1);
+}
+
+.length-input-item .unit-text {
+  margin-left: 6px;
+}
+
+@media screen and (max-width: 414px) {
+  .inner {
+    width: 94%;
+    margin: 0 auto;
+  }
+
+  header .inner {
+    height: 80px;
+  }
+
+  header .logo {
+    font-size: 6rem;
+    width: 100%;
+    text-align: center;
+  }
+
+  header .menu-btn {
+    display: block;
+    position: absolute;
+    right: 3%;
+    top: 10px;
+    padding: 0;
+    width: 34px;
+    height: 34px;
+    line-height: 32px;
+    text-align: center;
+    border: 1px solid #666;
+    background: transparent;
+    border-radius: 50%;
+  }
+
+  .menu-btn:focus {
+    outline: none;
+  }
+
+  header .header-nav {
+    width: 250px;
+    position: fixed;
+    display: block;
+    top: 80px;
+    right: 0;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.8);
+    transition: all 0.2s;
+    transform: translate(250px);
+  }
+
+  header .header-nav.open {
+    transform: translate(0);
+  }
+
+  header .header-nav ul {
+    display: block;
+  }
+
+  header .header-nav li a {
+    display: block;
+    width: 100%;
+    padding: 0 10px;
+    height: 30px;
+    line-height: 30px;
+    box-sizing: border-box;
+    margin: 0;
+  }
+
+  section h1 {
+    font-size: 2.7rem;
+    line-height: 1.5;
+  }
+
+  #kv {
+    top: 80px;
+    height: 300px;
+  }
+}
+
+/* cut & shampoo 写真：3列 × 2行 */
+.cut-shampoo-photos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 20px 0 30px;
+}
+
+.cut-shampoo-photos img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.parts-wrap img {
+  width: 100%;       /* 親要素の幅いっぱいに広げる */
+  max-width: 500px;  /* ★幅の上限（数値を小さくすると画像も小さくなります） */
+  height: auto;      /* 縦横比を維持 */
+  display: block;
+  margin: 0 auto;    /* 中央寄せしたい場合 */
+}
+  
+
+@media screen and (max-width: 414px) {
+  .cut-shampoo-photos {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+}
+
+
+/* other hairstyles */
+.other-hairstyles {
+  display: block;
+  margin: 20px auto 30px;
+  font-size: 1.6rem;
+  color: #2e4551;
+  letter-spacing: 0.1em;
+}
+
+.other-hairstyles:hover {
+  color: orange;
+  font-weight: 600;
+}
+
+@media screen and (max-width: 768px) {
+  .colors {
+    padding-left: 0;
+    border-left: none;        /* スマホでは縦線を消す */
+    border-top: 1px solid #e0e0e0; /* 代わりに上部に薄い横線を入れる */
+    padding-top: 20px;
+    margin-top: 10px;
+  }
+}
+
+/* index2 / parts 写真 */
+#kv .cut-shampoo-photos {
+  display: block;
+  width: 300px;
+  max-width: 100%;
+  margin: 20px auto 30px;
+}
+
+#kv .cut-shampoo-photos img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* partsページでは #kv を写真の大きさに合わせる */
+#kv:has(.cut-shampoo-photos) {
+  position: static;
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  background: none;
+  margin-top: 100px;
+  padding: 0;
+}
+
+@media screen and (max-width: 414px) {
+  #kv:has(.cut-shampoo-photos) {
+    margin-top: 80px;
+  }
+
+  #kv .cut-shampoo-photos {
+    width: 94%;
+    max-width: 300px;
+  }
+}
+

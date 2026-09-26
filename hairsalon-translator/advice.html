@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Today's Order</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="icomoon/style.css">
+  <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script>
+    $(function () {
+      $('.menu-btn').click(function () {
+        $('.header-nav').toggleClass('open');
+      });
+
+      $('.header-nav a').click(function () {$('.header-nav').toggleClass('open');
+  });
+});
+  </script>
+
+<style>
+/* 項目をカード風ではなくシンプルなリストに変更し、文字サイズを小さくする */
+.advice-sentence {
+  margin: 20px auto;
+  max-width: 100%;
+  list-style: none;
+  padding: 0;
+}
+
+.advice-sentence li {
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 8px 0 !important;
+  margin: 0 !important;
+  font-size: 0.95rem; /* 文字サイズを小さく調整 */
+  line-height: 1.5;
+}
+
+.advice-sentence p {
+  margin: 0;
+}
+
+.advice-ja {
+  cursor: pointer;
+}
+.english-original {
+  margin: 2px 0 8px 0 !important;
+  padding-left: 24px;
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+.advice-ja:hover {
+  text-decoration: underline;
+}
+#selected-orders:empty {
+  display: none;
+}
+
+.advice-sentence select {
+  font: inherit;
+  color: inherit;
+  padding: 1px 4px;
+  margin: 0 2px;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  background: #fff;
+  font-size: 0.9rem;
+}
+
+#selected-orders {
+  margin-top: 15px;
+  padding-left: 20px; /* 箇条書き用の余白 */
+}
+
+/* 下部の選択項目を一文ずつ綺麗な箇条書き（ul/li）形式に */
+#selected-orders ul {
+  list-style-type: disc !important;
+  padding-left: 20px !important;
+  margin: 0 !important;
+}
+
+.selected-order-item {
+  display: list-item !important; /* 確実に箇条書きの点が表示されるようにする */
+  margin: 6px 0;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+</style>
+
+</head>
+
+<body>
+  <header>
+    <div class="inner">
+      <h1 class="logo"><span class="icon-logo"></span></h1>
+      <button type="button" class="menu-btn">menu</button>
+
+      <nav class="header-nav">
+    <ul>
+      <li><a href="index.html">Today's Order<br>オーダー</a></li>
+      <li><a href="perm-straightening/index.html">Perm / Straightening<br>パーマ・縮毛矯正</a></li>
+      <li><a href="hair coloring/index.html">Hair Coloring<br>髪染め</a></li>
+      <li><a href="treatment/index.html">Treatment<br>トリートメント</a></li>
+      <li><a href="head spa/index.html">Head Spa<br>ヘッドスパ</a></li>
+    </ul>
+  </nav>
+</div>
+  </header>
+
+  <main>
+    <div id="kv"></div>
+
+<section id="main">
+  <div class="menu">
+    <h1>本日のアドバイス</h1>
+    <div class="wrap-blk">
+      <div class="contents-blk" id="items">
+        <ul class="advice-sentence">
+          <li class="menu-item-check">
+            ＜髪質について＞
+            <label>
+              <p class="advice-ja" data-en="Because your hair is [amount-word], I [quantity-word].">
+                <input type="checkbox" name="menu" value="treatment">
+                髪質に合わせて、
+                <select id="amount-word">
+                  <option value="quite thick">かなり太い</option>
+                  <option value="quite thin">かなり細い</option>
+                  <option value="fair">普通な</option>
+                </select>ので、
+                <select id="quantity-word">
+                  <option value="remove some weight">少し毛量を減らします</option>
+                  <option value="leave this much of your hair">このくらいの毛量を残します</option>
+                </select>。
+              </p>
+              <p class="english-original" data-template="Because your hair is [amount-word], I [quantity-word]."></p>
+            </label>
+          </li>
+
+          <li class="menu-item-check">
+            ＜洗髪後のケア＞
+            <label>
+              <p class="advice-ja" data-en="Please dry [hairpart-word] after taking a shower.">
+                <input type="checkbox" name="menu" value="treatment">
+                シャワーの後は、
+                <select id="hairpart-word">
+                  <option value="the whole hair">髪全体</option>
+                  <option value="the roots">根元</option>
+                  <option value="the tips">毛先</option>
+                </select>を乾かしてください。
+              </p>
+              <p class="english-original" data-template="Please dry [hairpart-word] after taking a shower."></p>
+            </label>
+          </li>
+
+          <li class="menu-item-check">
+            ＜セットの流れ＞
+            <label>
+              <p class="advice-ja" data-en="If you would like to set your hairstyle in [atmosphere-word] way, set the [part-word] of your hair to [direction-word].">
+                <input type="checkbox" name="menu" value="treatment">
+                髪型を
+                <select id="atmosphere-word">
+                  <option value="an elegant">上品な</option>
+                  <option value="a stylish">おしゃれな</option>
+                  <option value="a neat">こざっぱりした</option>
+                  <option value="a sexy">セクシーな</option>
+                  <option value="a natural">ナチュラルな</option>
+                  <option value="a sophisticated">洗練された</option>
+                  <option value="a cute">かわいい</option>
+                </select>
+                雰囲気にしたい場合は、
+                <select id="part-word">
+                  <option value="tips">毛先</option>
+                  <option value="crown">頭頂部</option>
+                  <option value="bangs">前髪</option>
+                  <option value="back">後ろ</option>
+                </select>
+                を
+                <select id="direction-word">
+                  <option value="the inside">内側</option>
+                  <option value="the center">中央</option>
+                  <option value="the back">後ろ</option>
+                  <option value="the side">横</option>
+                </select>
+                にセットしてください。
+              </p>
+              <p class="english-original" data-template="If you would like to set your hairstyle in [atmosphere-word] way, set the [part-word] of your hair to [direction-word]."></p>
+            </label>
+          </li>
+
+          <li class="menu-item-check">
+            ＜スタイリング剤＞
+            <label>
+              <p class="advice-ja" data-en="Apply [amount-word-2] styling product to make you look [atmosphere-word-2] to [place-word]. [stylingproduct-word] would work well.">
+                <input type="checkbox" name="menu" value="treatment">
+                スタイリング剤を
+                <select id="amount-word-2">
+                  <option value="a small amount of">少量</option>
+                  <option value="enough">適量</option>
+                  <option value="a lot of">大量に</option>
+                </select>
+                使い、
+                <select id="atmosphere-word-2">
+                  <option value="elegant">上品な</option>
+                  <option value="stylish">おしゃれな</option>
+                  <option value="neat">きちんとした</option>
+                  <option value="stylish">セクシーな</option>
+                  <option value="natural">ナチュラルな</option>
+                  <option value="sophisticated">洗練された</option>
+                  <option value="cute">かわいい</option>
+                </select>
+                雰囲気に仕上げるため、
+                <select id="place-word">
+                  <option value="the tips">毛先</option>
+                  <option value="the whole part">髪全体</option>
+                  <option value="the side">サイド</option>
+                </select>
+                に付けてください。
+                <select id="stylingproduct-word">
+                  <option value="Hair wax">ヘアワックス</option>
+                  <option value="Gel">ジェル</option>
+                  <option value="Hair spray">ヘアスプレー</option>
+                  <option value="Hair balm">ヘアバーム</option>
+                  <option value="Hair oil">ヘアオイル</option>
+                  <option value="Hair cream">ヘアクリーム</option>
+                </select>
+                がおすすめです。
+              </p>
+              <p class="english-original" data-template="Apply [amount-word-2] styling product to make you look [atmosphere-word-2] to [place-word]."></p>
+            </label>
+          </li>
+          
+          <li class="menu-item-check">
+            <label>
+              <p class="advice-ja" data-en="Do not apply any styling products to make you look [atmosphere-word-2] to [place-word].">
+                <input type="checkbox" name="menu" value="treatment">
+                <select id="atmosphere-word-2">
+                  <option value="elegant">上品な</option>
+                  <option value="stylish">おしゃれな</option>
+                  <option value="neat">きちんとした</option>
+                  <option value="stylish">セクシーな</option>
+                  <option value="natural">ナチュラルな</option>
+                  <option value="sophisticated">洗練された</option>
+                  <option value="cute">かわいい</option>
+                </select>
+                雰囲気に仕上げるため、スタイリング剤は何も付けないでください。
+              </p>
+              <p class="english-original" data-template="Apply [amount-word-2] styling product to make you look [atmosphere-word-2] to [place-word]."></p>
+            </label>
+          </li>
+          
+          <li class="menu-item-check">
+            ＜今後維持するために＞
+            <label>
+              <p class="advice-ja" data-en="To keep this [target-word], we recommend you to have it done in [number-word] [unit-word].">
+                <input type="checkbox" name="menu" value="treatment">
+                この
+                <select id="target-word">
+                  <option value="color">カラー</option>
+                  <option value="hairstyle">ヘアスタイル</option>
+                </select>
+                を維持するために、
+                <select id="number-word">
+                  <option value="1">1</option><option value="2">2</option><option value="3">3</option>
+                  <option value="4" selected>4</option><option value="5">5</option><option value="6">6</option>
+                  <option value="7">7</option><option value="8">8</option><option value="9">9</option>
+                  <option value="10">10</option><option value="11">11</option><option value="12">12</option>
+                </select>
+                <select id="unit-word">
+                  <option value="weeks">週間</option>
+                  <option value="months">か月</option>
+                </select>
+                ごとに施術することをおすすめします。
+              </p>
+              <p class="english-original" data-template="To keep this [target-word], we recommend you to have it done in [number-word] [unit-word]."></p>
+            </label>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="order">
+    <div class="order-sticky-inner">
+      <h2>Here are some suggestions for your hairstyle.</h2>
+      <!-- 選択された内容が反映されるエリア（ulタグで箇条書き化） -->
+      <div id="selected-orders"></div>
+    </div>
+  </div>
+</section>
+  </main>
+
+<script>
+function toggleRadio(radio) {
+  if (radio.dataset.wasChecked === "true") {
+    radio.checked = false;
+    radio.dataset.wasChecked = "false";
+  } else {
+    document.querySelectorAll('input[type="radio"][name="' + radio.name + '"]').forEach(function(item) {
+      item.dataset.wasChecked = "false";
+    });
+    radio.checked = true;
+    radio.dataset.wasChecked = "true";
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+
+  // Existing radio button behavior
+  document.querySelectorAll('input[type="radio"]').forEach(function(radio) {
+    radio.addEventListener("click", function() {
+      toggleRadio(this);
+    });
+  });
+
+  // Keep the English sentence directly under each Japanese sentence.
+  const checkboxes = document.querySelectorAll('.menu-item-check input[type="checkbox"]');
+  const selectedOrders = document.getElementById("selected-orders");
+
+  function getEnglishSentence(paragraph) {
+    let sentence = paragraph.dataset.en || "";
+
+    paragraph.querySelectorAll("select").forEach(function(select) {
+      const selected = select.options[select.selectedIndex];
+      const value = selected ? selected.value : "";
+      sentence = sentence.replace("[" + select.id + "]", value);
+    });
+
+    return sentence;
+  }
+
+  function updateEnglishPreviews() {
+    document.querySelectorAll(".advice-ja").forEach(function(paragraph) {
+      const english = paragraph.parentElement.querySelector(".english-original");
+      if (english) {
+        english.textContent = getEnglishSentence(paragraph);
+      }
+    });
+  }
+
+  function updateOrder() {
+    selectedOrders.innerHTML = "";
+    const ul = document.createElement("ul");
+
+    checkboxes.forEach(function(checkbox) {
+      if (!checkbox.checked) return;
+
+      const paragraph = checkbox.closest(".menu-item-check").querySelector("p.advice-ja");
+      if (!paragraph) return;
+
+      const orderItem = document.createElement("li");
+      orderItem.className = "selected-order-item";
+      orderItem.textContent = getEnglishSentence(paragraph);
+      ul.appendChild(orderItem);
+    });
+
+    if (ul.children.length > 0) {
+      selectedOrders.appendChild(ul);
+    }
+  }
+
+  checkboxes.forEach(function(checkbox) {
+    checkbox.addEventListener("change", updateOrder);
+  });
+
+  document.querySelectorAll(".advice-sentence select").forEach(function(select) {
+    select.addEventListener("change", function() {
+      updateEnglishPreviews();
+      updateOrder();
+    });
+  });
+
+  updateEnglishPreviews();
+  updateOrder();
+});
+</script>
+
+</body>
+</html>

@@ -2,38 +2,92 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>Today's Order</title>
+  <title>Today's Order with Large Drawing Canvas</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="icomoon/style.css">
   <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-  <script>
-    $(function () {
-      $('.menu-btn').click(function () {
-        $('.header-nav').toggleClass('open');
-      });
+  <style>
+    body.locked input,
+    body.locked textarea,
+    body.locked .drawing-tools {
+      pointer-events: none;
+      user-select: text;
+      background-color: #f5f5f5;
+    }
 
-      $('.header-nav a').click(function () {
-        $('.header-nav').toggleClass('open');
-      });
-    });
-  </script>
+    /* 選択されたヘアスタイル写真を枠線なし・大きめでHair Coloring枠内に表示 */
+    .selected-hairstyle-preview-container {
+      margin-top: 15px;
+      padding: 0;
+      border: none;
+      background: transparent;
+      text-align: left;
+      display: none; /* 初期状態は非表示 */
+    }
+    .selected-hairstyle-preview-container p {
+      font-size: 13px;
+      color: #333;
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+
+    /* 描画エリアのラッパー（画像とキャンバスを大きく重ねる） */
+    .canvas-draw-wrapper {
+      position: relative;
+      display: inline-block;
+      max-width: 100%;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+      background-color: #fff;
+      touch-action: none;
+    }
+    .canvas-draw-wrapper img {
+      display: block;
+      width: 100%;
+      max-width: 320px; /* 画像サイズを拡大 */
+      height: auto;
+      pointer-events: none;
+    }
+    .canvas-draw-wrapper canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      cursor: crosshair;
+    }
+
+    /* 描画ツールバーのスタイル */
+    .drawing-tools {
+      margin-top: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      gap: 8px;
+      align-items: center;
+      font-size: 12px;
+    }
+    .drawing-tools button,
+    .drawing-tools select,
+    .drawing-tools input {
+      padding: 5px 10px;
+      font-size: 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background: #fff;
+      cursor: pointer;
+    }
+    .drawing-tools button:hover {
+      background: #eee;
+    }
+  </style>
 </head>
 
 <body>
   <header>
     <div class="inner">
       <h1 class="logo"><span class="icon-logo"></span></h1>
-      <button type="button" class="menu-btn">menu</button>
-
-      <nav class="header-nav">
-        <ul>
-          <li><a href="index.html">Today's Order<br>オーダー</a></li>
-          <li><a href="perm-straightening/index.html">Perm / Straightening<br>パーマ・縮毛矯正</a></li>
-          <li><a href="hair coloring/index.html">Hair Coloring<br>髪染め</a></li>
-          <li><a href="treatment/index.html">Treatment<br>トリートメント</a></li>
-          <li><a href="head spa/index.html">Head Spa<br>ヘッドスパ</a></li>
-        </ul>
-      </nav>
     </div>
   </header>
 
@@ -41,186 +95,538 @@
     <div id="kv"></div>
 
     <section id="main">
-      <div class="menu">
-        <h1>menu</h1>
-        <h2 class="lead">Please select your order</h2>
+  <div class="menu">
+    <h1>Menu</h1>
+    <h2 class="lead">Please select your order</h2>
 
-        <div class="wrap-blk">
-          <div class="contents-blk" id="items">
-            <ul>
-              <li>
-                <a href="cut&shampoo/index.html">cut & shampoo （カット＆シャンプー）</a>
-                <p class="instruction">Please click on the closest picture to your desired hairstyle.</p>
+    <div class="wrap-blk">
+      <div class="contents-blk" id="items">
+        <ul>
+          <li class="menu-section-card">
+            <div class="section-title-wrap">
+              <span class="section-badge">Step 1</span>
+              <h3>Cut &amp; Shampoo</h3>
+            </div>
+            <p class="instruction">Please click on the closest picture to your desired hairstyle.</p>
 
-                <div class="cut-shampoo-photos">
-                  <a href="shortwoman.html"><img src="images/cut01.jpg" alt="shorthairwoman"></a>
-                  <a href="mediumwoman.html"><img src="images/cut02.jpg" alt="mediumhairwoman"></a>
-                  <a href="longwoman.html"><img src="images/cut03.jpg" alt="longhairwoman"></a>
-                  <a href="shortman.html"><img src="images/cut04.jpg" alt="shorthairman"></a>
-                  <a href="mediumman.html"><img src="images/cut05.jpg" alt="mediumhairman"></a>
-                  <a href="longman.html"><img src="images/cut06.jpg" alt="longhairman"></a>
-                </div>
-
-                <a class="other-hairstyles" href="others/index.html">
-                  other hairstyles
-                </br>（上記以外のヘアスタイル）
-                </a>
-              </li>
-
-<div class="options">
-<h4 class="lead">Extra Options
-   </br>（追加オプション）
-   </h4>
-<li class="menu-item-check">
-
-  <!-- パーマのブロック -->
-  <div class="menu-option">
-    <label>
-      <input type="checkbox" name="menu" value="perm">
-      <span>perm （パーマ）</span>
-    </label>
-    <div class="menu-img-wrap">
-      <img src="images/perm.jpg" alt="perm">
-    </div>
-  </div>
-
-  <!-- 縮毛矯正のブロック -->
-  <div class="menu-option">
-    <label>
-      <input type="checkbox" name="menu" value="straightening">
-      <span>straightening （縮毛矯正）</span>
-    </label>
-    <div class="menu-img-wrap">
-      <img src="images/straightening.jpg" alt="straightening">
-    </div>
-  </div>
-</li>
- 
-<div class="coloring-menu">
-  <h4>Hair Coloring
-  </br>（カラーリング）  
-  </h4>
-  <div class="colormenu">
-   <label>
-     <input type="checkbox" name="coloring" value="coloring">
-       Coloring
-       </br>（ヘアカラー）
-   </label>
-
-   <label>
-     <input type="checkbox" name="coloring" value="bleaching">
-       Bleaching
-     </br>（ブリーチ）
-   </label>
-
-   <label>
-     <input type="checkbox" name="coloring" value="bleaching-coloring">
-       Bleaching &amp; Coloring
-       </br>（ヘアカラー＆ブリーチ）
-  </label>
- </div>
- 
- <div class="colors">
-  <h4>Select Color </h4>
-  <label>
-     <input type="checkbox" name="coloring" value="bleaching">
-       black
-     </br>（黒）
-  </label>
-
-     <label>
-     <input type="checkbox" name="coloring" value="bleaching">
-       gray
-     </br>（白髪）
-     </label>
-
- <label>
-     <input type="checkbox" name="coloring" value="bleaching">
-       brown
-     </br>（茶髪）
-</label>
-
-<label>
-     <input type="checkbox" name="coloring" value="bleaching">
-       blond
-     </br>（金髪）
-   </label>
-
-   <label>
-     <input type="checkbox" name="coloring" value="bleaching">
-       red
-     </br>（赤）
-   </label>
-  <label>
-     <input type="checkbox" name="coloring" value="bleaching">
-       pink
-     </br>（ピンク）
-   </label>
-  <label>
-     <input type="checkbox" name="coloring" value="bleaching">
-       blue
-     </br>（青）
-   </label>
-   <label>
-     <input type="checkbox" name="coloring" value="bleaching">
-       green
-     </br>（緑）
-   </label>
-   <label>
-     <input type="checkbox" name="coloring" value="bleaching">
-       purple
-     </br>（紫）
-   </label>
-   <label>
-     <input type="checkbox" name="coloring" value="bleaching">
-       another color
-     </br>（その他）
-   </label>
- </div>
-</div>
-</ul>
-
-              <li class="menu-item-check">
-                 <label>
-                  <input type="checkbox" name="menu" value="treatment">
-                     <a href="treatment/index.html">Treatment（トリートメント）</a>
-                </label>
-              </li>
-              <li class="menu-item-check">
+            <div class="cut-shampoo-photos">
+              <!-- 各写真のカード -->
+              <div class="photo-card">
                 <label>
-                  <input type="checkbox" name="menu" value="head-spa">
-                  <a href="contact/index.html">Head Spa（ヘッドスパ）</a>
+                  <input type="radio" name="cut-hairstyle" value="short (woman) / ショート（女性）" data-label="short (woman) <span>（ショート・女性）</span>">
+                  <img src="images/cut01.jpg" alt="shorthairwoman">
+                  <span class="hairstyle-caption">short</span>
                 </label>
-              </li>
+                <a href="shortwoman.html" class="detail-link">details <span>（詳細）</span></a>
+              </div>
 
-              <!-- ▼ ヘッドスパの真下にコメント欄を移動しました -->
-              <li class="comment-container-item">
-                <div class="comment-container">
-                  <h3>Other Info.(その他リクエスト等)<br>If you have extra requests or orders, please write it here.</h3>
-                  <form action="#" method="POST">
-                    <div class="form-group">
-                      <textarea id="comment" name="comment" rows="5" placeholder="Type here"></textarea>
-                    </div>
-                  </form>
+              <div class="photo-card">
+                <label>
+                  <input type="radio" name="cut-hairstyle" value="medium (woman) / ミディアム（女性）" data-label="medium (woman) <span>（ミディアム・女性）</span>">
+                  <img src="images/cut02.jpg" alt="mediumhairwoman">
+                  <span class="hairstyle-caption">medium</span>
+                </label>
+                <a href="mediumwoman.html" class="detail-link">details <span>（詳細）</span></a>
+              </div>
+
+              <div class="photo-card">
+                <label>
+                  <input type="radio" name="cut-hairstyle" value="long (woman) / ロング（女性）" data-label="long (woman) <span>（ロング・女性）</span>">
+                  <img src="images/cut03.jpg" alt="longhairwoman">
+                  <span class="hairstyle-caption">long</span>
+                </label>
+                <a href="longwoman.html" class="detail-link">details <span>（詳細）</span></a>
+              </div>
+
+              <div class="photo-card">
+                <label>
+                  <input type="radio" name="cut-hairstyle" value="short (man) / ショート（男性）" data-label="short (man) <span>（ショート・男性）</span>">
+                  <img src="images/cut04.jpg" alt="shorthairman">
+                  <span class="hairstyle-caption">short</span>
+                </label>
+                <a href="shortman.html" class="detail-link">details <span>（詳細）</span></a>
+              </div>
+
+              <div class="photo-card">
+                <label>
+                  <input type="radio" name="cut-hairstyle" value="medium (man) / ミディアム（男性）" data-label="medium (man) <span>（ミディアム・男性）</span>">
+                  <img src="images/cut05.jpg" alt="mediumhairman">
+                  <span class="hairstyle-caption">medium</span>
+                </label>
+                <a href="mediumman.html" class="detail-link">details <span>（詳細）</span></a>
+              </div>
+
+              <div class="photo-card">
+                <label>
+                  <input type="radio" name="cut-hairstyle" value="long (man) / ロング（男性）" data-label="long (man) <span>（ロング・男性）</span>">
+                  <img src="images/cut06.jpg" alt="longhairman">
+                  <span class="hairstyle-caption">long</span>
+                </label>
+                <a href="longman.html" class="detail-link">details <span>（詳細）</span></a>
+              </div>
+            </div>
+
+            <div class="other-hairstyles-wrap">
+              <a class="other-hairstyles" href="others.html">
+                Other Hairstyles<br><span>（上記以外のヘアスタイル）</span>
+              </a>
+            </div>
+          </li>
+
+          <li class="menu-section-card options">
+            <div class="section-title-wrap">
+              <span class="section-badge">Step 2</span>
+              <h3>Extra Options<br><span>（追加オプション）</span></h3>
+            </div>
+
+            <div class="perm-straightening-grid">
+              <div class="menu-option">
+                <label>
+                  <input type="radio" name="perm-straightening" value="Perm" data-label="Perm <span>（パーマ）</span>">
+                  <span>Perm<br>（パーマ）</span>
+                </label>
+                <div class="menu-img-wrap">
+                  <img src="images/perm.jpg" alt="perm">
                 </div>
-              </li>
-              <!-- ▲ ここまで -->
+              </div>
 
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div> <!-- ← 閉じタグの数・位置も整理 -->
+              <div class="menu-option">
+                <label>
+                  <input type="radio" name="perm-straightening" value="Straightening" data-label="Straightening <span>（縮毛矯正）</span>">
+                  <span>Straightening<br><span>（縮毛矯正）</span></span>
+                </label>
+                <div class="menu-img-wrap">
+                  <img src="images/straightening.jpg" alt="straightening">
+                </div>
+              </div>
+            </div>
 
-      <div class="order">
-        <div>
-         <h2>today's order</h2>
-         <a>hairstyle （ヘアスタイル）</a>
-         </div>
-         <div><a>+shampoo （シャンプー）</a>
-       </div>
+            <div class="coloring-menu">
+              <div class="coloring-left-group">
+                <h4>Hair Coloring<br><span>（カラーリング）</span></h4>
+                <div class="colormenu">
+                  <label><input type="radio" name="hair-coloring" value="Coloring" data-label="Coloring <span>（ヘアカラー）</span>"> Coloring <br><span>（ヘアカラー）</span></label>
+                  <label><input type="radio" name="hair-coloring" value="Bleaching" data-label="Bleaching <span>（ブリーチ）</span>"> Bleaching <br><span>（ブリーチ）</span></label>
+                  <label><input type="radio" name="hair-coloring" value="Bleaching & Coloring" data-label="Bleaching & Coloring <span>（ヘアカラー＆ブリーチ）</span>"> Bleaching &amp; Coloring <br><span>（ヘアカラー＆ブリーチ）</span></label>
+                </div>
+
+                <!-- ▼ 選択写真 + ボーダーなし大型手動描き込み用プレビューコンテナ ▼ -->
+                <div id="coloring-selected-photo-preview" class="selected-hairstyle-preview-container">
+                  <p>Draw on photo (手動マーク追加)</p>
+                  <div class="canvas-draw-wrapper" id="canvas-wrapper">
+                    <img id="coloring-preview-img" src="" alt="Selected Hairstyle">
+                    <canvas id="draw-canvas"></canvas>
+                  </div>
+                  <!-- 描画ツール操作パネル -->
+                  <div class="drawing-tools">
+                    <label>Color: <input type="color" id="pen-color" value="#ff0000"></label>
+                    <label>Size: <select id="pen-size">
+                      <option value="2">Fine (細)</option>
+                      <option value="4" selected>Normal (中)</option>
+                      <option value="8">Bold (太)</option>
+                    </select></label>
+                    <button type="button" id="clear-canvas-btn">Clear (クリア)</button>
+                  </div>
+                </div>
+                <!-- ▲ 追加ここまで ▲ -->
+              </div>
+              
+              <div class="colors">
+                <h4>Select Color</h4>
+                <div class="color-options-grid">
+                  <label><input type="radio" name="select-color" value="black" data-label="black <span>（黒）</span>"> black<br><span>（黒）</span></label>
+                  <label><input type="radio" name="select-color" value="gray" data-label="gray <span>（白髪）</span>"> gray<br><span>（白髪）</span></label>
+                  <label><input type="radio" name="select-color" value="brown" data-label="brown <span>（茶髪）</span>"> brown<br><span>（茶髪）</span></label>
+                  <label><input type="radio" name="select-color" value="blond" data-label="blond <span>（金髪）</span>"> blond<br><span>（金髪）</span></label>
+                  <label><input type="radio" name="select-color" value="red" data-label="red <span>（赤）</span>"> red<br><span>（赤）</span></label>
+                  <label><input type="radio" name="select-color" value="pink" data-label="pink <span>（ピンク）</span>"> pink<br><span>（ピンク）</span></label>
+                  <label><input type="radio" name="select-color" value="blue" data-label="blue <span>（青）</span>"> blue<br><span>（青）</span></label>
+                  <label><input type="radio" name="select-color" value="green" data-label="green <span>（緑）</span>"> green<br><span>（緑）</span></label>
+                  <label><input type="radio" name="select-color" value="purple" data-label="purple <span>（紫）</span>"> purple<br><span>（紫）</span></label>
+                  <label><input type="radio" name="select-color" value="another-color" data-label="another color <span>（その他）</span>"> another color<br><span>（その他）</span></label>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <li class="menu-section-card menu-item-check">
+            <label class="checkbox-main-label">
+              <input type="checkbox" name="menu-treatment" value="Treatment" data-label="Treatment <span>（トリートメント）</span>">
+              <span class="checkbox-text">Treatment <br><span>（トリートメント）</span></span>
+            </label>
+          </li>
+
+          <li class="menu-section-card menu-item-check">
+            <label class="checkbox-main-label">
+              <input type="checkbox" name="menu-headspa" value="Head Spa" data-label="Head Spa <span>（ヘッドスパ）</span>">
+              <span class="checkbox-text">Head Spa <br><span>（ヘッドスパ）</span></span>
+            </label>
+          </li>
+
+          <li class="menu-section-card comment-container-item head-spa-comment">
+            <div class="comment-container">
+              <h3>Other Info. (その他リクエスト等)<br><span>If you have extra requests or orders, please write it here.</span></h3>
+              <div class="form-group">
+                <textarea id="comment" name="comment" rows="5" placeholder="Type here..."></textarea>
+              </div>
+            </div>
+          </li>
+
+        </ul>
       </div>
-    </section>
+    </div>
+  </div>
+
+  <div class="order-list-placeholder" id="order-summary-list">
+        <p class="order-item-main" id="res-hairstyle">not selected <span class="sub-jp">（ヘアスタイル）</span></p>
+        <p class="order-item-sub" id="res-shampoo">+Shampoo <span class="sub-jp">（シャンプー）</span></p>
+        <p class="order-item-sub" id="res-option" style="display:none;"></p>
+        <p class="order-item-sub" id="res-coloring" style="display:none;"></p>
+        <p class="order-item-sub" id="res-color" style="display:none;"></p>
+        <p class="order-item-sub" id="res-treatment" style="display:none;"></p>
+        <p class="order-item-sub" id="res-headspa" style="display:none;"></p>
+        <p class="order-item-sub" id="res-comment" style="display:none;"></p>
+      </div>
+      <div style="margin-top: 15px;">
+        <button type="button" id="confirm-btn" style="padding: 8px 16px; font-size: 14px; cursor: pointer; background-color: #0066cc; color: #fff; border: none; border-radius: 4px;">confirm（完了）</button>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top: 15px;">
+        <a href="advice.html" style="color: #0066cc; text-decoration: underline; font-size: 14px;">Go to Advice <span>（アドバイスへ進む）</span></a>
+      </div>
+</section>
   </main>
+
+<script>
+let isConfirmed = false;
+let currentLoadedImageSrc = ""; // 現在読み込まれている画像のパスを保持
+
+// 描画関連の初期化関数
+function initDrawingCanvas() {
+  const img = document.getElementById("coloring-preview-img");
+  const canvas = document.getElementById("draw-canvas");
+  const ctx = canvas.getContext("2d");
+  const clearBtn = document.getElementById("clear-canvas-btn");
+  const colorInput = document.getElementById("pen-color");
+  const sizeSelect = document.getElementById("pen-size");
+
+  let isDrawing = false;
+
+  function resizeCanvas() {
+    if (img.naturalWidth) {
+      // 既存の描画内容を退避
+      let tempCanvas = null;
+      if (canvas.width > 0 && canvas.height > 0) {
+        tempCanvas = document.createElement('canvas');
+        tempCanvas.width = canvas.width;
+        tempCanvas.height = canvas.height;
+        tempCanvas.getContext('2d').drawImage(canvas, 0, 0);
+      }
+
+      canvas.width = img.clientWidth;
+      canvas.height = img.clientHeight;
+
+      // 退避した描画内容を新しいサイズに合わせて復元
+      if (tempCanvas) {
+        ctx.drawImage(tempCanvas, 0, 0, canvas.width, canvas.height);
+      }
+    }
+  }
+
+  img.onload = function() {
+    resizeCanvas();
+  };
+
+  clearBtn.addEventListener("click", function() {
+    if (isConfirmed) return;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  });
+
+  function getPos(e) {
+    const rect = canvas.getBoundingClientRect();
+    let clientX, clientY;
+    if (e.touches && e.touches.length > 0) {
+      clientX = e.touches[0].clientX;
+      clientY = e.touches[0].clientY;
+    } else {
+      clientX = e.clientX;
+      clientY = e.clientY;
+    }
+    return {
+      x: clientX - rect.left,
+      y: clientY - rect.top
+    };
+  }
+
+  function startDraw(e) {
+    if (isConfirmed) return;
+    isDrawing = true;
+    const pos = getPos(e);
+    ctx.beginPath();
+    ctx.moveTo(pos.x, pos.y);
+    e.preventDefault();
+  }
+
+  function drawing(e) {
+    if (!isDrawing || isConfirmed) return;
+    const pos = getPos(e);
+    ctx.strokeStyle = colorInput.value;
+    ctx.lineWidth = parseInt(sizeSelect.value, 10);
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.lineTo(pos.x, pos.y);
+    ctx.stroke();
+    e.preventDefault();
+  }
+
+  function stopDraw() {
+    isDrawing = false;
+  }
+
+  canvas.addEventListener("mousedown", startDraw);
+  canvas.addEventListener("mousemove", drawing);
+  canvas.addEventListener("mouseup", stopDraw);
+  canvas.addEventListener("mouseleave", stopDraw);
+
+  canvas.addEventListener("touchstart", startDraw, { passive: false });
+  canvas.addEventListener("touchmove", drawing, { passive: false });
+  canvas.addEventListener("touchend", stopDraw);
+
+  window.addEventListener("resize", resizeCanvas);
+}
+
+function toggleRadio(radio) {
+  if (isConfirmed) return;
+  
+  if (radio.name === "cut-hairstyle") {
+    localStorage.removeItem('selectedHairstyleTitle');
+    localStorage.removeItem('selectedHairstyleImg');
+    currentLoadedImageSrc = ""; // 選択解除時はリセット
+  }
+
+  if (radio.dataset.wasChecked === "true") {
+    radio.checked = false;
+    radio.dataset.wasChecked = "false";
+  } else {
+    document.querySelectorAll('input[type="radio"][name="' + radio.name + '"]').forEach(function(item) {
+      item.dataset.wasChecked = "false";
+    });
+    radio.checked = true;
+    radio.dataset.wasChecked = "true";
+  }
+  updateOrderSummary();
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+  initDrawingCanvas();
+
+  document.querySelectorAll('input[type="radio"]').forEach(function(radio) {
+    radio.addEventListener("click", function(e) {
+      if (isConfirmed) {
+        e.preventDefault();
+        return;
+      }
+      toggleRadio(this);
+    });
+  });
+
+  document.querySelectorAll('input[type="checkbox"]').forEach(function(chk) {
+    chk.addEventListener("click", function(e) {
+      if (isConfirmed) {
+        e.preventDefault();
+      }
+    });
+    chk.addEventListener("change", function() {
+      if (isConfirmed) return;
+      updateOrderSummary();
+    });
+  });
+
+  const commentBox = document.getElementById("comment");
+  if (commentBox) {
+    commentBox.addEventListener("input", function() {
+      if (isConfirmed) return;
+      updateOrderSummary();
+    });
+    commentBox.addEventListener("keydown", function(e) {
+      if (isConfirmed) {
+        e.preventDefault();
+      }
+    });
+  }
+
+  const confirmBtn = document.getElementById("confirm-btn");
+  if (confirmBtn) {
+    confirmBtn.addEventListener("click", function() {
+      isConfirmed = !isConfirmed;
+      if (isConfirmed) {
+        document.body.classList.add('locked');
+        confirmBtn.textContent = "edit（編集する）";
+        confirmBtn.style.backgroundColor = "#6c757d";
+      } else {
+        document.body.classList.remove('locked');
+        confirmBtn.textContent = "confirm（完了）";
+        confirmBtn.style.backgroundColor = "#0066cc";
+      }
+    });
+  }
+
+  updateOrderSummary();
+});
+
+function updateOrderSummary() {
+  const selectedHairstyle = document.querySelector('input[type="radio"][name="cut-hairstyle"]:checked');
+  const resHairstyle = document.getElementById("res-hairstyle");
+  const resShampoo = document.getElementById("res-shampoo");
+  
+  const previewContainer = document.getElementById("coloring-selected-photo-preview");
+  const previewImg = document.getElementById("coloring-preview-img");
+  const canvas = document.getElementById("draw-canvas");
+  const ctx = canvas.getContext("2d");
+
+  const savedTitle = localStorage.getItem('selectedHairstyleTitle');
+  const savedImg = localStorage.getItem('selectedHairstyleImg');
+
+  let targetImgSrc = "";
+  let targetImgAlt = "";
+
+  if (selectedHairstyle) {
+    resHairstyle.innerHTML = selectedHairstyle.dataset.label + ' <span class="sub-jp">（ヘアスタイル）</span>';
+    resShampoo.style.display = "block";
+
+    const photoCard = selectedHairstyle.closest('.photo-card');
+    if (photoCard) {
+      const imgElem = photoCard.querySelector('img');
+      if (imgElem) {
+        targetImgSrc = imgElem.src;
+        targetImgAlt = imgElem.alt;
+      }
+    }
+  } else if (savedTitle && savedImg) {
+    resHairstyle.innerHTML = savedTitle + ' <span class="sub-jp">（ヘアスタイル）</span>';
+    resShampoo.style.display = "block";
+    targetImgSrc = savedImg;
+    targetImgAlt = savedTitle;
+  } else {
+    resHairstyle.innerHTML = 'not selected <span class="sub-jp">（ヘアスタイル）</span>';
+    resShampoo.style.display = "none";
+
+    if (previewContainer) {
+      previewContainer.style.display = "none";
+      if (previewImg) previewImg.src = "";
+      currentLoadedImageSrc = "";
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+  }
+
+  if (targetImgSrc !== "") {
+    if (previewContainer && previewImg) {
+      // 完全に同じ画像かどうかを絶対パスで比較
+      let targetAbsoluteUrl = "";
+      try {
+        targetAbsoluteUrl = new URL(targetImgSrc, window.location.origin).href;
+      } catch (e) {
+        targetAbsoluteUrl = targetImgSrc;
+      }
+
+      // まだ読み込まれていない、または別の画像に変わった場合のみ画像を設定・初期化する
+      if (currentLoadedImageSrc !== targetAbsoluteUrl) {
+        currentLoadedImageSrc = targetAbsoluteUrl;
+        previewImg.src = targetImgSrc;
+        previewImg.alt = targetImgAlt;
+        previewImg.onload = function() {
+          canvas.width = previewImg.clientWidth;
+          canvas.height = previewImg.clientHeight;
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+        };
+      } else {
+        // 同じ画像である場合は、チェックボックス等の変更でプレビューの表示状態が再確認されても
+        // キャンバスの描画内容が失われないよう、サイズ調整のみ行い中身を保持する
+        let tempCanvas = null;
+        if (canvas.width > 0 && canvas.height > 0) {
+          tempCanvas = document.createElement('canvas');
+          tempCanvas.width = canvas.width;
+          tempCanvas.height = canvas.height;
+          tempCanvas.getContext('2d').drawImage(canvas, 0, 0);
+        }
+        canvas.width = previewImg.clientWidth;
+        canvas.height = previewImg.clientHeight;
+        if (tempCanvas) {
+          ctx.drawImage(tempCanvas, 0, 0, canvas.width, canvas.height);
+        }
+      }
+      previewContainer.style.display = "block";
+    }
+  }
+
+  const selectedOpt = document.querySelector('input[type="radio"][name="perm-straightening"]:checked');
+  const resOpt = document.getElementById("res-option");
+  if (selectedOpt) {
+    resOpt.innerHTML = '+' + selectedOpt.dataset.label;
+    resOpt.style.display = "block";
+  } else {
+    resOpt.style.display = "none";
+  }
+
+  const selectedCol = document.querySelector('input[type="radio"][name="hair-coloring"]:checked');
+  const resCol = document.getElementById("res-coloring");
+  if (selectedCol) {
+    resCol.innerHTML = '+' + selectedCol.dataset.label;
+    resCol.style.display = "block";
+  } else {
+    resCol.style.display = "none";
+  }
+
+  const selectedColorOption = document.querySelector('input[type="radio"][name="select-color"]:checked');
+  const resColor = document.getElementById("res-color");
+  if (selectedColorOption) {
+    resColor.innerHTML = '+Color: ' + selectedColorOption.dataset.label;
+    resColor.style.display = "block";
+  } else {
+    resColor.style.display = "none";
+  }
+
+  const treatmentChk = document.querySelector('input[name="menu-treatment"]');
+  const resTreatment = document.getElementById("res-treatment");
+  if (treatmentChk && treatmentChk.checked) {
+    resTreatment.innerHTML = '+' + treatmentChk.dataset.label;
+    resTreatment.style.display = "block";
+  } else {
+    resTreatment.style.display = "none";
+  }
+
+  const headspaChk = document.querySelector('input[name="menu-headspa"]');
+  const resHeadspa = document.getElementById("res-headspa");
+  if (headspaChk && headspaChk.checked) {
+    resHeadspa.innerHTML = '+' + headspaChk.dataset.label;
+    resHeadspa.style.display = "block";
+  } else {
+    resHeadspa.style.display = "none";
+  }
+
+  const commentText = document.getElementById("comment").value.trim();
+  const resComment = document.getElementById("res-comment");
+  if (commentText !== "") {
+    resComment.innerHTML = 'Request: ' + escapeHtml(commentText);
+    resComment.style.display = "block";
+  } else {
+    resComment.style.display = "none";
+  }
+}
+
+function escapeHtml(text) {
+  return text.replace(/[&<>"']/g, function(match) {
+    return {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#039;'
+    }[match];
+  });
+}
+</script>
+
 </body>
 </html>

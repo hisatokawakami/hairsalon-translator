@@ -41,67 +41,69 @@
     <div id="kv"></div>
 
     <section id="main">
+      <!-- ▼ メニューと入力欄をまとめた全体の左側エリア -->
       <div class="menu">
-        <h1>short hair</h1>
+        <h1>short hair</h1> <!-- ※各ページの髪型・長さに合わせて書き換えてください -->
+        
         <div class="parts">
           <h2 class="lead">How long would you like to get your hair cut?</h2>
-              <div class="parts-wrap">
-                  <img src="images/shortmparts.jpg" alt="shortfparts">
-               </div>
+          
+          <!-- 写真のサイズを整えるパーツ -->
+          <div class="parts-wrap">
+            <img src="images/shortmparts.jpg" alt="shortmparts"> <!-- ※各ページの写真パスに合わせる -->
 
-               <!-- ★ここに「戻るボタン」を移動させる -->
-        <div class="back-link-wrap">
-          <a href="javascript:history.back();" class="back-btn">&lt; back</a>
+        <!-- ▼ 長さの入力欄（.menu の中に入れることで綺麗に配置されます） -->
+        <div class="length-input-group">
+          <div class="length-input-item">
+            <span class="label-text">bangs（前髪）:</span>
+            <input type="number" name="bangs_length" min="-50" max="50" step="0.5" placeholder="0">
+            <span class="unit-text">cm</span>
+          </div>
+
+          <div class="length-input-item">
+            <span class="label-text">crown（トップ）:</span>
+            <input type="number" name="crown_length" min="-50" max="50" step="0.5" placeholder="0">
+            <span class="unit-text">cm</span>
+          </div>
+
+          <div class="length-input-item">
+            <span class="label-text">side（サイド）:</span>
+            <input type="number" name="side_length" min="-50" max="50" step="0.5" placeholder="0">
+            <span class="unit-text">cm</span>
+          </div>
+
+          <div class="length-input-item">
+            <span class="label-text">back（後ろ髪）:</span>
+            <input type="number" name="back_length" min="-50" max="50" step="0.5" placeholder="0">
+            <span class="unit-text">cm</span>
+          </div>
+
+          <div class="length-input-item">
+            <span class="label-text">nape（えりあし）:</span>
+            <input type="number" name="nape_length" min="-50" max="50" step="0.5" placeholder="0">
+            <span class="unit-text">cm</span>
+          </div>
+
+          <div class="length-input-item">
+            <span class="label-text">sideburns（もみあげ）:</span>
+            <input type="number" name="sideburns_length" min="-50" max="50" step="0.5" placeholder="0">
+            <span class="unit-text">cm</span>
+          </div>
         </div>
 
-        </div>
-      </div>
-      <div class="length-input-group">
-  <div class="length-input-item">
-    <span class="label-text">bangs（前髪）:</span>
-    <input type="number" name="bangs_length" min="0" max="50" step="0.5" placeholder="0">
-    <span class="unit-text">cm shorter</span>
-  </div>
+      </div> <!-- /.menu の閉じタグ -->
 
-  <div class="length-input-item">
-    <span class="label-text">crown（トップ）:</span>
-    <input type="number" name="crown_length" min="0" max="50" step="0.5" placeholder="0">
-    <span class="unit-text">cm shorter</span>
-  </div>
-
-  <div class="length-input-item">
-    <span class="label-text">side（サイド）:</span>
-    <input type="number" name="side_length" min="0" max="50" step="0.5" placeholder="0">
-    <span class="unit-text">cm shorter</span>
-  </div>
-
-  <div class="length-input-item">
-    <span class="label-text">back（後ろ髪）:</span>
-    <input type="number" name="back_length" min="0" max="50" step="0.5" placeholder="0">
-    <span class="unit-text">cm shorter</span>
-  </div>
-
-  <div class="length-input-item">
-    <span class="label-text">nape（えりあし）:</span>
-    <input type="number" name="nape_length" min="0" max="50" step="0.5" placeholder="0">
-    <span class="unit-text">cm shorter</span>
-  </div>
-
-  <div class="length-input-item">
-    <span class="label-text">sideburns（もみあげ）:</span>
-    <input type="number" name="sideburns_length" min="0" max="50" step="0.5" placeholder="0">
-    <span class="unit-text">cm shorter</span>
-  </div>
-</div>
-      </div>
+      <!-- ▼ 右側のオーダー確認エリア -->
       <div class="order">
         <div>
-         <h2>today's order</h2>
-         <a>hairstyle （ヘアスタイル）</a>
-         </div>
-         <div><a>+shampoo （シャンプー）</a>
-       </div>
+          <h2>today's order</h2>
+          <a>hairstyle （ヘアスタイル）</a>
+        </div>
+        <div>
+          <a>+shampoo （シャンプー）</a>
+        </div>
       </div>
+
     </section>
   </main>
 </body>
